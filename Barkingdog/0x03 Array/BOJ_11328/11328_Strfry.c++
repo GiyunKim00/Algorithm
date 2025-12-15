@@ -20,13 +20,9 @@ int main() {
       continue;
     }
 
-    for (auto i: a) arr[i - 'a']++;
-
-    for (auto i: b) {
-      if (--arr[i - 'a'] < 0) {
-        check = false;
-        break;
-      }
+    for (int i = 0; i < a.length(); ++i) {
+      arr[a[i] - 'a']++;
+      arr[b[i] - 'a']--;
     }
 
     for (auto i: arr) {
