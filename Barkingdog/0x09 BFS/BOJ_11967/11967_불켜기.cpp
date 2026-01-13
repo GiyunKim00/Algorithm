@@ -5,7 +5,7 @@ using namespace std;
 
 int N, M;
 
-int arr[101][101];
+bool arr[101][101];
 bool visit[101][101];
 
 int dx[4] = {0, 1, 0, -1};
@@ -16,7 +16,7 @@ queue<pair<int, int>> q_arr[101][101];
 int bfs() {
     queue<pair<int, int>> q;
     int cnt = 1;
-    arr[1][1] = 1;
+    arr[1][1] = true;
     visit[1][1] = true;
     q.emplace(1, 1);
 
@@ -26,15 +26,15 @@ int bfs() {
         q.pop();
         while (!q_arr[t.first][t.second].empty()) {
             auto light = q_arr[t.first][t.second].front();
-            if (arr[light.first][light.second] == 0) {
+            if (!arr[light.first][light.second]) {
 //                cout << "turn on : " << light.first << " " << light.second << "\n";
-                arr[light.first][light.second] = 1;
+                arr[light.first][light.second] = true;
                 cnt++;
                 for (int i = 0; i < 4; ++i) {
                     int nx = light.first + dx[i];
                     int ny = light.second + dy[i];
                     if (nx < 1 || ny < 1 || nx > N || ny > N) continue;
-                    if (arr[nx][ny] == 1 && visit[nx][ny]) {
+                    if (arr[nx][ny] && visit[nx][ny]) {
                         q.emplace(light.first, light.second);
                         visit[light.first][light.second] = true;
                         break;
@@ -56,7 +56,7 @@ int bfs() {
             int ny = t.second + dy[i];
 
             if (nx < 1 || ny < 1 || nx > N || ny > N) continue;
-            if (arr[nx][ny] == 0 || visit[nx][ny]) continue;
+            if (!arr[nx][ny] || visit[nx][ny]) continue;
 
             visit[nx][ny] = true;
             q.emplace(nx, ny);
