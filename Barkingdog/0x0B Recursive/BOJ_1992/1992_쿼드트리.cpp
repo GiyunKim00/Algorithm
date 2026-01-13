@@ -6,38 +6,30 @@ using namespace std;
 int N;
 string ans;
 
-void recursive(vector<vector<char>> &arr, pair<int, int> start, int size) {
-    if (size == 1) {
-        cout << "(" << arr[start.first][start.second] << ")";
-        return;
-    }
-    cout << "(";
-    int new_size = size / 2;
-    bool check[4] = {false,};
-    int cnt = 0;
-    for (int k: {0, new_size}) {
-        for (int l: {0, new_size}) {
-            char num = arr[start.first + k][start.second + l];
-            for (int i = start.first + k; i < start.first + new_size + k; ++i) {
-                for (int j = start.second + l; j < start.second + new_size + l; ++j) {
-                    if (num != arr[i][j]) {
-                        check[cnt] = true;
-                        break;
-                    }
-                }
-                if (check[cnt]) break;
+void recursive(vector<vector<char>>& arr, int x, int y, int size) {
+    char first = arr[x][y];
+    bool check = true;
+
+    for (int i = x; i < x + size && check; i++) {
+        for (int j = y; j < y + size; j++) {
+            if (arr[i][j] != first) {
+                check = false;
+                break;
             }
-
-            if (check[cnt]) {
-                if (cnt == 0) recursive(arr, {start.first, start.second}, new_size);
-                if (cnt == 1) recursive(arr, {start.first, start.second + new_size}, new_size);
-                if (cnt == 2) recursive(arr, {start.first + new_size, start.second}, new_size);
-                if (cnt == 3) recursive(arr, {start.first + new_size, start.second + new_size}, new_size);
-            } else cout << num;
-
-            cnt++;
         }
     }
+
+    if (check) {
+        cout << first;
+        return;
+    }
+
+    int half_size = size / 2;
+    cout << "(";
+    recursive(arr, x, y, half_size);
+    recursive(arr, x, y + half_size, half_size);
+    recursive(arr, x + half_size, y, half_size);
+    recursive(arr, x + half_size, y + half_size, half_size);
     cout << ")";
 }
 
@@ -45,22 +37,17 @@ int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
     cout.tie(nullptr);
-    bool check = true;
+
     cin >> N;
-    char checker;
+
     vector<vector<char>> arr(N, vector<char>(N, 0));
     for (int i = 0; i < N; ++i) {
         string s;
         cin >> s;
-        for (int j = 0; j < N; ++j){
-            arr[i][j] = s[j];
-            checker = arr[0][0];
-            if(checker != arr[i][j]) check = false;
-        }
-
+        for (int j = 0; j < N; ++j) arr[i][j] = s[j];
     }
-    if(check) cout << checker;
-    else recursive(arr, {0, 0}, N);
+
+    recursive(arr, 0, 0, N);
 
 
     return 0;
