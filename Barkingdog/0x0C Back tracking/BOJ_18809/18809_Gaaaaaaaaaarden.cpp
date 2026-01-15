@@ -3,7 +3,7 @@
 #include <tuple>
 
 using namespace std;
-
+ 
 int N, M, G, R, sum;
 int arr[50][50];
 bool check[50][50];
