@@ -10,7 +10,10 @@ int main() {
     string s;
 
     cin >> n >> s;
-
+    /**
+     * 연산자 우선순위 주의!
+     * 문제를 잘 살피고, +=, *=로 접근해도 되는 문제인지 확인하기.
+     */
     for (int i = 0; i < n; ++i){
         sum += (s[i] - 'a' + 1) * power % m;
         sum %= m;
