@@ -12,7 +12,8 @@ int main() {
     cin.tie(nullptr);
     cout.tie(nullptr);
 
-    int t, ans = 0;
+    int t;
+    long long int ans = 0;
 
     cin >> n;
 
