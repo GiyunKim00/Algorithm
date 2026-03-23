@@ -7,7 +7,7 @@ using namespace std;
 int n, m;
 vector<int> arr, ans;
 
-void recurisve(const int idx, const int size) {
+void recursive(const int idx, const int size) {
     if (size == m) {
         for (const auto i: ans) cout << i << " ";
         cout << "\n";
@@ -20,7 +20,7 @@ void recurisve(const int idx, const int size) {
     for (int i = idx; i < n; ++i) {
         if (prev && prev == arr[i]) continue;
         ans.push_back(arr[i]);
-        recurisve(i, size + 1);
+        recursive(i, size + 1);
         prev = ans.back();
         ans.pop_back();
     }
@@ -43,7 +43,7 @@ int main() {
 
     sort(arr.begin(), arr.end());
 
-    recurisve(0, 0);
+    recursive(0, 0);
 
     return 0;
 }
