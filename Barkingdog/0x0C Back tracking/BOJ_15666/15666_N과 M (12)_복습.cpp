@@ -7,7 +7,7 @@ using namespace std;
 int n, m;
 vector<int> arr, ans;
 
-void recurisve(const int idx, const int size) {
+void recursive(const int idx, const int size) {
     if (size == m) {
         for (const auto i: ans) cout << i << " ";
         cout << "\n";
